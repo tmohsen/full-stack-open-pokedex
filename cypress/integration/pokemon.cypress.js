@@ -8,10 +8,8 @@ describe('Pokedex', function () {
   })
 
   it('Ivysaur can be opened', function () {
-	cy.visit('http://localhost:5000')
-	cy.contains('ivysaur').click()
-    cy.contains(
-      'chlorophyll'
-    )
+    cy.visit('http://localhost:5000')
+    cy.contains('ivysaur').click()
+    cy.contains('chlorophyll')
   })
 })
