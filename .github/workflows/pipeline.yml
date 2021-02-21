@@ -36,3 +36,4 @@ jobs:
           checkstring: "ok"
           delay: 15
           rollbackonhealthcheckfailed: true
+          delay: 15
