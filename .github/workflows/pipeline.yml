@@ -34,6 +34,5 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           healthcheck: "https://fs-pokedex-tm.herokuapp.com/health"
           checkstring: "ok"
-          delay: 15
           rollbackonhealthcheckfailed: true
           delay: 15
