@@ -33,5 +33,6 @@ jobs:
           heroku_app_name: "fs-pokedex-tm" #Must be unique in Heroku
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           healthcheck: "https://fs-pokedex-tm.herokuapp.com/health"
-          delay: 15
+          checkstring: "ok"  # This version of Heroku Deploy seems to have bug that rollback is done twice if checkstring is used.
           rollbackonhealthcheckfailed: true
+          delay: 15
