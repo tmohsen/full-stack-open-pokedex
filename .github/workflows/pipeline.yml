@@ -41,3 +41,10 @@ jobs:
           checkstring: "ok"  # This version of Heroku Deploy seems to have bug that rollback is done twice if checkstring is used.
           rollbackonhealthcheckfailed: true
           delay: 15
+      - name: Bump version and push tag
+        if: ${{ github.event_name == 'push' }}
+        uses: anothrNick/github-tag-action@1.33.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: "patch"
+          INITIAL_VERSION: "0.0.5"
