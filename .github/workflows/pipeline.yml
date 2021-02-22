@@ -53,10 +53,26 @@ jobs:
           checkstring: "ok"  # This version of Heroku Deploy seems to have bug that rollback is done twice if checkstring is used.
           rollbackonhealthcheckfailed: true
           delay: 15
-      - name: Bump version and push tag
+      - name: bump version and push tag
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ','), '#skip') }}
         uses: anothrNick/github-tag-action@1.33.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: "patch"
           INITIAL_VERSION: "0.0.5"
+      - name: report success
+        if: ${{ github.event_name == 'push' && success() }}
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,commit,author,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: report failure
+        if: ${{ !success() }}
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
